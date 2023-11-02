@@ -1,0 +1,14 @@
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\bin\Debug\net6.0\CSVTask.exe
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\bin\Debug\net6.0\CSVTask.deps.json
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\bin\Debug\net6.0\CSVTask.runtimeconfig.json
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\bin\Debug\net6.0\CSVTask.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\bin\Debug\net6.0\CSVTask.pdb
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.AssemblyInfoInputs.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.AssemblyInfo.cs
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.csproj.CoreCompileInputs.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\refint\CSVTask.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.pdb
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\CSVTask.genruntimeconfig.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\CSVTask\CSVTask\obj\Debug\net6.0\ref\CSVTask.dll

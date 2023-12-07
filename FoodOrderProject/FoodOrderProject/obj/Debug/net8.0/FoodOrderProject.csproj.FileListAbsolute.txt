@@ -1,0 +1,14 @@
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.AssemblyInfoInputs.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.AssemblyInfo.cs
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.csproj.CoreCompileInputs.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\bin\Debug\net8.0\FoodOrderProject.exe
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\bin\Debug\net8.0\FoodOrderProject.deps.json
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\bin\Debug\net8.0\FoodOrderProject.runtimeconfig.json
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\bin\Debug\net8.0\FoodOrderProject.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\bin\Debug\net8.0\FoodOrderProject.pdb
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\refint\FoodOrderProject.dll
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.pdb
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\FoodOrderProject.genruntimeconfig.cache
+C:\Users\22005405.UHIAD\OneDrive - UHI\SD Object Oriented Programming\FoodOrderProject\FoodOrderProject\obj\Debug\net8.0\ref\FoodOrderProject.dll

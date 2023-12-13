@@ -13,51 +13,48 @@ namespace FoodOrderProject
             // Local Variables
             string curLine = "";
             string fileDelimiter = ",";
-            string[] item;
             string csvMenuPath = "Menu.csv";
             string csvOrderPath = "Order.csv";
             string csvHistoryPath = "CustomerHistory.csv";
             string csvCustomerPath = "Customers.csv";
-            
+
+            // Create a List (A type of array) for all our people!
             List<MenuItems> menu = new List<MenuItems>();
             List<Customer> customer = new List<Customer>();
             try
             {
+                // Open the file
                 using (StreamReader bufferFile = new StreamReader(csvMenuPath))
                 {
-                    while ((curLine = bufferFile.ReadLine()) != null)
+                    while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                     {
-                        item = curLine.Split(fileDelimiter);
+                        string[] item = curLine.Split(fileDelimiter);
                         menu.Add(new MenuItems(item[1], item[2], item[3], item[4], item[5]));
                     }
                 }
 
                 using (StreamReader bufferFile = new StreamReader(csvCustomerPath))
                 {
-                    while ((curLine = bufferFile.ReadLine()) != null)
+                    while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                     {
-                        item = curLine.Split(fileDelimiter);
-                        customer.Add(new Customer(item[1], item[2], item[3], item[4], item[5]));
+                        string[] cust = curLine.Split(fileDelimiter);
+                        customer.Add(new Customer(cust[1], cust[2], cust[3], cust[4], cust[5]));
                     }
                 }
             }
             catch (FileNotFoundException)
             {
-                // No File found
                 Console.WriteLine("File not found.");
             }
             catch (IOException)
             {
-                // Can't read file
                 Console.WriteLine("An error occurred while reading the file.");
             }
-            // Sort the list of items
             menu.Sort();
-            // Print the sorted list of items
             for (int i = 0; i < menu.Count; i++)
             {
                 Console.WriteLine($"{i + 1},{menu[i].ToString()}");
-            }
+                }
 
             Console.WriteLine("What type of user are you?");
             Console.WriteLine("1. Customer");
@@ -74,6 +71,7 @@ namespace FoodOrderProject
                     case 1:
                         Customer register = new Customer();
                         register.RegisterCustomer();
+                        customer.Add(new Customer(register.customerID, register.name, register.usertype, register.contact, register.address));
 
                         Console.WriteLine("What would you like to order from the menu?");
                         int userOrder = Convert.ToInt32(Console.ReadLine());
@@ -93,17 +91,12 @@ namespace FoodOrderProject
 
                         using (StreamWriter writer = new StreamWriter(csvOrderPath, append : true))
                         {
-                            writer.WriteLine(order.orderID);
-                            writer.WriteLine($"{menu[userOrder].ToString()}");
-                            writer.WriteLine(order.orderStatus);
-                            writer.WriteLine(order.orderMod);
-                            writer.WriteLine(register.customerID);
+                            writer.WriteLine(order.orderID, $"{menu[userOrder].ToString()}", order.orderStatus, order.orderMod, register.customerID, register.address);
                          }
 
                         using (StreamWriter writer = new StreamWriter(csvHistoryPath, append : true))
                         {
-                            writer.WriteLine(register.customerID);
-                            writer.WriteLine($"{menu[userOrder].ToString()}");
+                            writer.WriteLine(register.customerID, $"{menu[userOrder].ToString()}");
                         }
                         break;
 
@@ -122,16 +115,51 @@ namespace FoodOrderProject
                                 case 1:
                                     MenuItems add = new MenuItems();
                                     add.AddMenu();
+                                    menu.Add(new MenuItems(add.itemID, add.name, add.description, add.price, add.category));
+                                    using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
+                                    {
+                                        writer.WriteLine(add.itemID, add.name, add.description, add.price, add.category);
+                                    }
                                     break;
 
                                 case 2:
                                     MenuItems update = new MenuItems();
                                     update.UpdateMenu();
+                                    menu.RemoveAt(Convert.ToInt32(update.itemID));
+                                    menu.Add(new MenuItems(update.itemID, update.name, update.description, update.price, update.category));
+                                    using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
+                                    {
+                                        for (int i = 0; i < menu.Count; i++)
+                                        {
+                                            writer.WriteLine($"{i + 1},{menu[i].ToString()}");
+                                        }
+                                    }
+                                    menu.Clear();
+                                    using (StreamReader bufferFile = new StreamReader(csvMenuPath))
+                                    {
+                                        while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
+                                        {
+                                            string[] item = curLine.Split(fileDelimiter);
+                                            menu.Add(new MenuItems(item[1], item[2], item[3], item[4], item[5]));
+                                        }
+                                    }
+                                    menu.Sort();
+                                    for (int i = 0; i < menu.Count; i++)
+                                    {
+                                        Console.WriteLine($"{i + 1},{menu[i].ToString()}");
+                                    }
                                     break;
 
                                 case 3:
-                                    MenuItems remove = new MenuItems();
-                                    remove.RemoveMenu();
+                                    int remove = Convert.ToInt32(Console.ReadLine());
+                                    menu.RemoveAt(remove);
+                                    for (int i = 0; i < menu.Count; i++)
+                                    {
+                                        using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
+                                        {
+                                            writer.WriteLine($"{menu[i].ToString()}");
+                                        }
+                                    }
                                     break;
 
                                 default:

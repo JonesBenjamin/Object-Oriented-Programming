@@ -23,11 +23,11 @@ namespace FoodOrderProject
 
         public Customer(string customerID, string name, string usertype, string contact, string address)
         {
-            this.customerID = "0";
-            this.name = "Unknown";
-            this.usertype = "Customer";
-            this.contact = "Unknown";
-            this.address = "Unknown";
+            this.customerID = customerID;
+            this.name = name;
+            this.usertype = usertype;
+            this.contact = contact;
+            this.address = address;
         }
 
         public void RegisterCustomer()
@@ -50,15 +50,15 @@ namespace FoodOrderProject
                 }
 
                 this.customerID = Convert.ToString(count);
+            }
 
-                using (StreamWriter streamWriter = new StreamWriter(csvCustomerPath, append : true))
-                {
-                    streamWriter.WriteLine(this.customerID);
-                    streamWriter.WriteLine(this.name);
-                    streamWriter.WriteLine(this.usertype);
-                    streamWriter.WriteLine(this.contact);
-                    streamWriter.WriteLine(this.address);
-                }
+            using (StreamWriter streamWriter = new StreamWriter(csvCustomerPath, append: true))
+            {
+                streamWriter.WriteLine(this.customerID);
+                streamWriter.WriteLine(this.name);
+                streamWriter.WriteLine(this.usertype);
+                streamWriter.WriteLine(this.contact);
+                streamWriter.WriteLine(this.address);
             }
         }
     }

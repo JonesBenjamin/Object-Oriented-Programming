@@ -54,11 +54,7 @@ namespace FoodOrderProject
 
             using (StreamWriter streamWriter = new StreamWriter(csvCustomerPath, append: true))
             {
-                streamWriter.WriteLine(this.customerID);
-                streamWriter.WriteLine(this.name);
-                streamWriter.WriteLine(this.usertype);
-                streamWriter.WriteLine(this.contact);
-                streamWriter.WriteLine(this.address);
+                streamWriter.WriteLine(this.customerID + "," + this.name + ",", this.usertype + "," + this.contact + "," + this.address);
             }
         }
     }

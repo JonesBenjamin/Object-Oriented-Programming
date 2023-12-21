@@ -29,7 +29,7 @@ namespace FoodOrderProject
                     while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                     {
                         string[] item = curLine.Split(fileDelimiter);
-                        menu.Add(new MenuItems(item[1], item[2], item[3], item[4], item[5]));
+                        menu.Add(new MenuItems(item[0], item[1], item[2], item[3], item[4]));
                     }
                 }
 
@@ -37,8 +37,11 @@ namespace FoodOrderProject
                 {
                     while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                     {
-                        string[] cust = curLine.Split(fileDelimiter);
-                        customer.Add(new Customer(cust[1], cust[2], cust[3], cust[4], cust[5]));
+                        if (curLine.Length > 0)
+                        {
+                            string[] cust = curLine.Split(fileDelimiter);
+                            customer.Add(new Customer(cust[0], cust[1], cust[2], cust[3], cust[4]));
+                        }
                     }
                 }
             }
@@ -53,7 +56,7 @@ namespace FoodOrderProject
             menu.Sort();
             for (int i = 0; i < menu.Count; i++)
             {
-                Console.WriteLine($"{i + 1},{menu[i].ToString()}");
+                Console.WriteLine($"{menu[i].ToString()}");
                 }
 
             Console.WriteLine("What type of user are you?");
@@ -64,6 +67,7 @@ namespace FoodOrderProject
             int typeInput;
             do
             {
+                Console.WriteLine("Pick An Option");
                 typeInput = Convert.ToInt32(Console.ReadLine());
                 switch (typeInput)
                 {
@@ -80,7 +84,10 @@ namespace FoodOrderProject
                         {
                             while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                             {
-                                newID = newID + 1;
+                                if (curLine.Length > 0)
+                                {
+                                    newID = newID + 1;
+                                }
                             }
                         }
                         Orders order = new Orders();
@@ -91,12 +98,12 @@ namespace FoodOrderProject
 
                         using (StreamWriter writer = new StreamWriter(csvOrderPath, append : true))
                         {
-                            writer.WriteLine(order.orderID, $"{menu[userOrder].ToString()}", order.orderStatus, order.orderMod, register.customerID, register.address);
+                            writer.WriteLine(order.orderID + "," + $"{menu[userOrder].ToString()}" + "," + order.orderStatus + "," + order.orderMod + "," + register.customerID + "," + register.address);
                          }
 
                         using (StreamWriter writer = new StreamWriter(csvHistoryPath, append : true))
                         {
-                            writer.WriteLine(register.customerID, $"{menu[userOrder].ToString()}");
+                            writer.WriteLine(register.customerID + "," + $"{menu[userOrder].ToString()}");
                         }
                         break;
 
@@ -109,6 +116,7 @@ namespace FoodOrderProject
                         int adminChoice;
                         do
                         {
+                            Console.WriteLine("Pick An Option");
                             adminChoice = Convert.ToInt32(Console.ReadLine());
                             switch (adminChoice) 
                             {
@@ -118,7 +126,7 @@ namespace FoodOrderProject
                                     menu.Add(new MenuItems(add.itemID, add.name, add.description, add.price, add.category));
                                     using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
                                     {
-                                        writer.WriteLine(add.itemID, add.name, add.description, add.price, add.category);
+                                        writer.WriteLine(add.itemID + "," + add.name + "," + add.description + "," + add.price + "," + add.category);
                                     }
                                     break;
 
@@ -127,11 +135,12 @@ namespace FoodOrderProject
                                     update.UpdateMenu();
                                     menu.RemoveAt(Convert.ToInt32(update.itemID));
                                     menu.Add(new MenuItems(update.itemID, update.name, update.description, update.price, update.category));
+                                    System.IO.File.WriteAllText(csvMenuPath, string.Empty);
                                     using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
                                     {
                                         for (int i = 0; i < menu.Count; i++)
                                         {
-                                            writer.WriteLine($"{i + 1},{menu[i].ToString()}");
+                                            writer.WriteLine($"{menu[i].ToString()}");
                                         }
                                     }
                                     menu.Clear();
@@ -140,7 +149,7 @@ namespace FoodOrderProject
                                         while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                                         {
                                             string[] item = curLine.Split(fileDelimiter);
-                                            menu.Add(new MenuItems(item[1], item[2], item[3], item[4], item[5]));
+                                            menu.Add(new MenuItems(item[0], item[1], item[2], item[3], item[4]));
                                         }
                                     }
                                     menu.Sort();
@@ -153,6 +162,7 @@ namespace FoodOrderProject
                                 case 3:
                                     int remove = Convert.ToInt32(Console.ReadLine());
                                     menu.RemoveAt(remove);
+                                    System.IO.File.WriteAllText(csvMenuPath, string.Empty);
                                     for (int i = 0; i < menu.Count; i++)
                                     {
                                         using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
@@ -160,6 +170,10 @@ namespace FoodOrderProject
                                             writer.WriteLine($"{menu[i].ToString()}");
                                         }
                                     }
+                                    break;
+
+                                case 4:
+                                    Console.WriteLine("Goodbye");
                                     break;
 
                                 default:
@@ -171,7 +185,33 @@ namespace FoodOrderProject
                         break;
 
                     case 3:
-                        
+                        Boolean ordersYes = true;
+                        List<Orders> orders = new List<Orders>();
+                        using (StreamReader bufferFile = new StreamReader(csvOrderPath))
+                        {
+                            while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
+                            {
+                                if (curLine.Length > 0)
+                                {
+                                    string[] item = curLine.Split(fileDelimiter);
+                                    orders.Add(new Orders(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]));
+                                }
+                                else
+                                {
+                                    Console.WriteLine("There are no orders");
+                                    ordersYes = false;
+                                }
+                            }
+
+                            if (ordersYes == true)
+                            {
+                                for (int i = 0; i < orders.Count; i++)
+                                {
+                                    Console.WriteLine($"{orders[i].ToString()}");
+                                }
+                            }
+                        }
+
                         break;
 
                     case 4:

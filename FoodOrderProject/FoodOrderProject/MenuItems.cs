@@ -53,7 +53,7 @@ namespace FoodOrderProject
         public void AddMenu()
         {
             string curLine = "";
-            int count = 0;
+            int count = 1;
             using (StreamReader reader = new StreamReader(csvMenuPath))
             {
                 while ((curLine = reader.ReadLine()) != null) // While not End of File
@@ -75,16 +75,21 @@ namespace FoodOrderProject
 
         public void UpdateMenu()
         {
+            Console.WriteLine("What do you want to update?");
             int updateChoice = Convert.ToInt32(Console.ReadLine());
             this.itemID = Convert.ToString(updateChoice);
+            Console.WriteLine("Name?");
             this.name = Console.ReadLine();
+            Console.WriteLine("Description?");
             this.description = Console.ReadLine();
+            Console.WriteLine("Price?");
             this.price = Console.ReadLine();
+            Console.WriteLine("Category?");
             this.category = Console.ReadLine();
 
             using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
             {
-                writer.WriteLine(this.itemID, this.name, this.description, this.price, this.category);
+                writer.WriteLine(this.itemID + "," + this.name + "," + this.description + "," + this.price + "," + this.category);
             }
         }
 

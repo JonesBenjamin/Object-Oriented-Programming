@@ -56,9 +56,13 @@ namespace FoodOrderProject
             int count = 1;
             using (StreamReader reader = new StreamReader(csvMenuPath))
             {
+                reader.ReadLine();
                 while ((curLine = reader.ReadLine()) != null) // While not End of File
                 {
-                    count = count + 1;
+                    if (curLine.Length > 0)
+                    {
+                        count = count + 1;
+                    }
                 }
 
                 this.itemID = Convert.ToString(count);

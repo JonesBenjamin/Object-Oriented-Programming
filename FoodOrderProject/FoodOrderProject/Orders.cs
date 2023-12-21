@@ -26,15 +26,14 @@ namespace FoodOrderProject
             this.customerAddress = "Unknown";
         }
 
-        public Orders(string orderID, string itemID, string name, string description, string price, string category, string orderStatus, string orderMod, string customerAddress)
+        public Orders(string orderID, string name, string description, string price, string category, string orderStatus, string orderMod, string customerAddress)
         {
             this.orderID = orderID;
-            this.itemID = itemID;
             this.name = name;
             this.description = description;
             this.price = price;
             this.category = category;
-            this.orderStatus = orderStatus;
+            this.orderStatus = "Out for Delivery";
             this.orderMod = orderMod;
             this.customerAddress = customerAddress;
         }

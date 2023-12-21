@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,6 @@ namespace FoodOrderProject
             string csvMenuPath = "Menu.csv";
             string csvOrderPath = "Order.csv";
             string csvHistoryPath = "CustomerHistory.csv";
-            string csvCustomerPath = "Customers.csv";
 
             // Create a List (A type of array) for all our people!
             List<MenuItems> menu = new List<MenuItems>();
@@ -26,22 +26,11 @@ namespace FoodOrderProject
                 // Open the file
                 using (StreamReader bufferFile = new StreamReader(csvMenuPath))
                 {
+                    bufferFile.ReadLine();
                     while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                     {
                         string[] item = curLine.Split(fileDelimiter);
                         menu.Add(new MenuItems(item[0], item[1], item[2], item[3], item[4]));
-                    }
-                }
-
-                using (StreamReader bufferFile = new StreamReader(csvCustomerPath))
-                {
-                    while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
-                    {
-                        if (curLine.Length > 0)
-                        {
-                            string[] cust = curLine.Split(fileDelimiter);
-                            customer.Add(new Customer(cust[0], cust[1], cust[2], cust[3], cust[4]));
-                        }
                     }
                 }
             }
@@ -82,6 +71,7 @@ namespace FoodOrderProject
                         int newID = 1;
                         using (StreamReader bufferFile = new StreamReader(csvOrderPath))
                         {
+                            bufferFile.ReadLine();
                             while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                             {
                                 if (curLine.Length > 0)
@@ -90,20 +80,25 @@ namespace FoodOrderProject
                                 }
                             }
                         }
+                        userOrder = userOrder - 1;
                         Orders order = new Orders();
                         order.orderID = Convert.ToString(newID);
+                        order.name = menu[userOrder].name;
+                        order.description = menu[userOrder].description;
+                        order.price = menu[userOrder].price;
+                        order.category = menu[userOrder].category;
                         order.orderStatus = "In Preparation";
                         Console.WriteLine("Would you like to make any modifications to your order?");
                         order.orderMod = Console.ReadLine();
 
                         using (StreamWriter writer = new StreamWriter(csvOrderPath, append : true))
                         {
-                            writer.WriteLine(order.orderID + "," + $"{menu[userOrder].ToString()}" + "," + order.orderStatus + "," + order.orderMod + "," + register.customerID + "," + register.address);
+                            writer.WriteLine(order.orderID + "," + order.name + "," + order.description + "," + order.price + "," + order.category + "," + order.orderStatus + "," + order.orderMod + "," + register.address);
                          }
 
                         using (StreamWriter writer = new StreamWriter(csvHistoryPath, append : true))
                         {
-                            writer.WriteLine(register.customerID + "," + $"{menu[userOrder].ToString()}");
+                            writer.WriteLine(register.name + "," + order.name);
                         }
                         break;
 
@@ -194,7 +189,7 @@ namespace FoodOrderProject
                                 if (curLine.Length > 0)
                                 {
                                     string[] item = curLine.Split(fileDelimiter);
-                                    orders.Add(new Orders(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]));
+                                    orders.Add(new Orders(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7]));
                                 }
                                 else
                                 {
@@ -208,10 +203,22 @@ namespace FoodOrderProject
                                 for (int i = 0; i < orders.Count; i++)
                                 {
                                     Console.WriteLine($"{orders[i].ToString()}");
+                                    Console.WriteLine("What is the address you want to deliver to?");
+                                    string deliveryAddress;
+                                    do
+                                    {
+                                        deliveryAddress = Console.ReadLine();
+                                        if (deliveryAddress != orders[i].customerAddress)
+                                        {
+                                            Console.WriteLine("Try again");
+                                        }
+                                    } while (deliveryAddress != orders[i].customerAddress);
+                                    orders[i].orderStatus = "Received";
+                                    Console.WriteLine($"{orders[i].ToString()}");
                                 }
+                                System.IO.File.WriteAllText(csvOrderPath, string.Empty);
                             }
                         }
-
                         break;
 
                     case 4:

@@ -44,6 +44,7 @@ namespace FoodOrderProject
 
             using (StreamReader reader = new StreamReader(csvCustomerPath))
             {
+                reader.ReadLine();
                 while ((curLine = reader.ReadLine()) != null) // While not End of File
                 {
                     count = count + 1;
@@ -54,7 +55,7 @@ namespace FoodOrderProject
 
             using (StreamWriter streamWriter = new StreamWriter(csvCustomerPath, append: true))
             {
-                streamWriter.WriteLine(this.customerID + "," + this.name + ",", this.usertype + "," + this.contact + "," + this.address);
+                streamWriter.WriteLine(this.customerID + "," + this.name + "," + this.contact + "," + this.address);
             }
         }
     }

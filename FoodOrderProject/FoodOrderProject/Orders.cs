@@ -33,7 +33,7 @@ namespace FoodOrderProject
             this.description = description;
             this.price = price;
             this.category = category;
-            this.orderStatus = "Out for Delivery";
+            this.orderStatus = orderStatus;
             this.orderMod = orderMod;
             this.customerAddress = customerAddress;
         }

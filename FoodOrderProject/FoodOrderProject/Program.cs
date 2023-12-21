@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -128,11 +129,13 @@ namespace FoodOrderProject
                                 case 2:
                                     MenuItems update = new MenuItems();
                                     update.UpdateMenu();
-                                    menu.RemoveAt(Convert.ToInt32(update.itemID));
+                                    int updateID = (Convert.ToInt32(update.itemID) - 1);
+                                    menu.RemoveAt(updateID);
                                     menu.Add(new MenuItems(update.itemID, update.name, update.description, update.price, update.category));
                                     System.IO.File.WriteAllText(csvMenuPath, string.Empty);
                                     using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
                                     {
+                                        writer.WriteLine();
                                         for (int i = 0; i < menu.Count; i++)
                                         {
                                             writer.WriteLine($"{menu[i].ToString()}");
@@ -141,6 +144,7 @@ namespace FoodOrderProject
                                     menu.Clear();
                                     using (StreamReader bufferFile = new StreamReader(csvMenuPath))
                                     {
+                                        bufferFile.ReadLine();
                                         while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                                         {
                                             string[] item = curLine.Split(fileDelimiter);
@@ -150,21 +154,24 @@ namespace FoodOrderProject
                                     menu.Sort();
                                     for (int i = 0; i < menu.Count; i++)
                                     {
-                                        Console.WriteLine($"{i + 1},{menu[i].ToString()}");
+                                        Console.WriteLine($"{menu[i].ToString()}");
                                     }
                                     break;
 
                                 case 3:
+                                    Console.WriteLine("What do you want to remove?");
                                     int remove = Convert.ToInt32(Console.ReadLine());
+                                    remove = remove - 1;
                                     menu.RemoveAt(remove);
                                     System.IO.File.WriteAllText(csvMenuPath, string.Empty);
-                                    for (int i = 0; i < menu.Count; i++)
-                                    {
                                         using (StreamWriter writer = new StreamWriter(csvMenuPath, append: true))
                                         {
-                                            writer.WriteLine($"{menu[i].ToString()}");
+                                            writer.WriteLine();
+                                            for (int i = 0; i < menu.Count; i++)
+                                            {
+                                                writer.WriteLine($"{menu[i].ToString()}");
+                                            }
                                         }
-                                    }
                                     break;
 
                                 case 4:
@@ -180,7 +187,7 @@ namespace FoodOrderProject
                         break;
 
                     case 3:
-                        Boolean ordersYes = true;
+                        Boolean ordersYes = false;
                         List<Orders> orders = new List<Orders>();
                         using (StreamReader bufferFile = new StreamReader(csvOrderPath))
                         {
@@ -191,35 +198,34 @@ namespace FoodOrderProject
                                 {
                                     string[] item = curLine.Split(fileDelimiter);
                                     orders.Add(new Orders(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7]));
+                                    ordersYes = true;
                                 }
-                                else
-                                {
-                                    Console.WriteLine("There are no orders");
-                                    ordersYes = false;
-                                }
-                            }
-
-                            if (ordersYes == true)
-                            {
-                                for (int i = 0; i < orders.Count; i++)
-                                {
-                                    Console.WriteLine($"{orders[i].ToString()}");
-                                    Console.WriteLine("What is the address you want to deliver to?");
-                                    string deliveryAddress;
-                                    do
-                                    {
-                                        deliveryAddress = Console.ReadLine();
-                                        if (deliveryAddress != orders[i].customerAddress)
-                                        {
-                                            Console.WriteLine("Try again");
-                                        }
-                                    } while (deliveryAddress != orders[i].customerAddress);
-                                    orders[i].orderStatus = "Received";
-                                    Console.WriteLine($"{orders[i].ToString()}");
-                                }
-                                System.IO.File.WriteAllText(csvOrderPath, string.Empty);
                             }
                         }
+
+                        if (ordersYes == true)
+                        {
+                            for (int i = 0; i < orders.Count; i++)
+                            {
+                                orders[i].orderStatus = "Out for Delivery";
+                                Console.WriteLine($"{orders[i].ToString()}");
+                                Console.WriteLine("What is the address you want to deliver to?");
+                                string deliveryAddress;
+                                do
+                                {
+                                    deliveryAddress = Console.ReadLine();
+                                    if (deliveryAddress != orders[i].customerAddress)
+                                    {
+                                        Console.WriteLine("Try again");
+                                    }
+                                } while (deliveryAddress != orders[i].customerAddress);
+                                orders[i].orderStatus = "Received";
+                                Console.WriteLine($"{orders[i].ToString()}");
+                            }
+                            System.IO.File.WriteAllText(csvOrderPath, string.Empty);
+                        }
+
+                        Console.WriteLine("There are no orders");
                         break;
 
                     case 4:

@@ -191,7 +191,6 @@ namespace FoodOrderProject
                         List<Orders> orders = new List<Orders>();
                         using (StreamReader bufferFile = new StreamReader(csvOrderPath))
                         {
-                            bufferFile.ReadLine();
                             while ((curLine = bufferFile.ReadLine()) != null) // While not End of File
                             {
                                 if (curLine.Length > 0)

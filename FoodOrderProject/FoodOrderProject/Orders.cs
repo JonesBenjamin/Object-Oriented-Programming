@@ -37,5 +37,10 @@ namespace FoodOrderProject
             this.orderMod = orderMod;
             this.customerAddress = customerAddress;
         }
+
+        public override string ToString()
+        {
+            return $"{this.orderID},{this.name},{this.description},{this.price},{this.category},{this.orderStatus},{this.orderMod},{this.customerAddress}";
+        }
     }
 }

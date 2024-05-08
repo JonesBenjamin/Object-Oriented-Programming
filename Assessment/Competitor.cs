@@ -37,9 +37,9 @@ namespace Assessment
         {
             if (result.raceTime < history.personalBest)
             {
-                history.personalBest = result.raceTime;
+                this.newPB = true;
             }
-            return history.personalBest;
+            return this.newPB;
         }
 
         public void ToFile()

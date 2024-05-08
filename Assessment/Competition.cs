@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +91,14 @@ namespace Assessment
 
         public void Winners(int target)
         {
+            target = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < competitors.Count; i++)
+            {
+                if (CompHistory.careerWins >= target)
+                {
+                        Console.WriteLine($"{competitors[i].ToString()}");
+                }
+            }
 
         }
 
@@ -100,7 +109,7 @@ namespace Assessment
 
         public override string ToString()
         {
-            
+            return $"{this.competitors}";
         }
 
         public string ToFile()

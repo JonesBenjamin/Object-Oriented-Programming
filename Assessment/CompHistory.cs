@@ -9,12 +9,17 @@ namespace Assessment
 {
     public class CompHistory
     {
-        private string mostRecentWin;
-        private int careerWins;
-        private ArrayList medals;
-        private double personalBest;
+        public string mostRecentWin;
+        public int careerWins;
+        public string medals;
+        public double personalBest;
 
-        public CompHistory(string mostRecentWin, int careerWins, ArrayList medals, double personalBest)
+        public CompHistory()
+        {
+
+        }
+
+        public CompHistory(string mostRecentWin, int careerWins, string medals, double personalBest)
         {
             this.mostRecentWin = mostRecentWin;
             this.careerWins = careerWins;
@@ -29,11 +34,7 @@ namespace Assessment
 
         public void ToFile()
         {
-            string csvHistoryPath = "CompHistory.csv";
-            using (StreamWriter writer = new StreamWriter(csvHistoryPath, append: true))
-            {
-                writer.WriteLine(this.mostRecentWin + "," + this.careerWins + "," + this.medals + "," + this.personalBest);
-            }
+
         }
     }
 }

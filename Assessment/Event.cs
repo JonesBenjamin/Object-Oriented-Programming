@@ -14,6 +14,20 @@ namespace Assessment
         public string eventDateTime { get; set; }
         public double record { get; set; }
 
+        public Event()
+        {
+
+        }
+
+        public Event(int eventNo, int venueID, string venue, string eventDateTime, double record)
+        {
+            this.eventNo = eventNo;
+            this.venueID = venueID;
+            this.venue = venue;
+            this.eventDateTime = eventDateTime;
+            this.record = record;
+        }
+
         public override string ToString()
         {
             return $"{this.eventNo},{this.venueID},{this.venue},{this.eventDateTime},{this.record}";
@@ -21,11 +35,7 @@ namespace Assessment
 
         public void ToFile()
         {
-            string csvEventPath = "Event.csv";
-            using (StreamWriter writer = new StreamWriter(csvEventPath, append: true))
-            {
-                writer.WriteLine(this.eventNo + "," + this.venueID + "," + this.venue + "," + this.eventDateTime + "," + this.record);
-            }
+            
         }
     }
 }

@@ -8,9 +8,14 @@ namespace Assessment
 {
     public class Result
     {
-        private int placed;
-        private double raceTime;
-        private Boolean qualified;
+        public int placed;
+        public double raceTime;
+        public Boolean qualified;
+
+        public Result()
+        {
+
+        }
 
         public Result(int placed, double raceTime, Boolean qualified)
         {
@@ -26,23 +31,20 @@ namespace Assessment
 
         public void ToFile()
         {
-            string csvResultPath = "Result.csv";
-            using (StreamWriter writer = new StreamWriter(csvResultPath, append: true))
-            {
-                writer.WriteLine(this.placed + "," + this.raceTime + "," + this.qualified);
-            }
+
         }
 
-        public string IsQualified()
+        public bool IsQualified(int placed)
         {
+            this.placed = placed;
             if (this.placed <= 3) {
-                qualified = true;
+                this.qualified = true;
             }
             else
-            {
-                qualified = false;
+            { 
+                this.qualified = false;
             }
-            return qualified;
+            return this.qualified;
         }
     }
 }
